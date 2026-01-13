@@ -1,0 +1,25 @@
+resources:
+  jobs:
+    retail_orders_job:
+      name: retail-orders-bronze-silver
+
+      tasks:
+        - task_key: bronze
+          notebook_task:
+            notebook_path: src/notebooks/bronze_updated.py
+          job_cluster_key: retail_cluster
+
+        - task_key: silver
+          depends_on:
+            - task_key: bronze
+          notebook_task:
+            notebook_path: src/notebooks/silver.py
+          job_cluster_key: retail_cluster
+
+      job_clusters:
+        - job_cluster_key: retail_cluster
+          new_cluster:
+            spark_version: 14.3.x-scala2.12
+            spark_conf:
+              "spark.databricks.cluster.profile": "serverless"
+

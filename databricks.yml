@@ -1,0 +1,7 @@
+bundle:
+  name: retail_orders_pipeline
+
+targets:
+  dev:
+    workspace:
+      host: https://dbc-0e5c3905-78a2.cloud.databricks.com
